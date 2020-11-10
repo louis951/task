@@ -1,0 +1,60 @@
+#include <iostream>
+using namespace std;
+class Stack {
+public:
+	static const int capacity = 20;
+	char array[capacity] = {};
+	int top = -1;
+	Stack() {
+
+	};
+	void Push(char x) {
+		array[++top] = x;
+	};
+	char Pop() {
+		return array[top--];
+	}
+	void PrintStack() {
+		for (int i = top; i >= 0; i--)
+			cout << array[top--] << " ";
+	}
+};
+int Transfer(char postfix[]) {
+	Stack stack;
+	int num1 = 0, num2 = 0, total = 0;
+	char toChar;
+	for (int i = 0; postfix[i] != '\0'; i++) {
+		switch (postfix[i]){
+		case '*':case '/':case '+':case '-':
+			num2 = stack.Pop() - '0';
+			num1 = stack.Pop() - '0';
+			switch (postfix[i]){
+			case '*':
+				total = num1 * num2;
+				break;
+			case '/':
+				total = num1 / num2;
+				break;
+			case '+':
+				total = num1 + num2;
+				break;
+			case '-':
+				total = num1 - num2;
+				break;
+			}
+			toChar = total + '0';
+			stack.Push(toChar);
+			break;
+		default:
+			stack.Push(postfix[i]);
+			break;
+		}
+	}
+	return stack.Pop() - '0';
+}
+int main(int argc, char *argv[])
+{
+	char itemset[20];
+	cin.getline(itemset, 20);
+	cout << Transfer(itemset);
+}
