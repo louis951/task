@@ -59,14 +59,14 @@ public:
 		ListNode *current = NULL;
 		ListNode *prev = NULL;
 
-		while (forward->link != NULL) {
-			prev = current;
-			current = forward;
-			forward = forward->link;
-			current->link = prev;
+		while (forward->link != NULL) { //口1->口2->口3
+			prev = current;			//p=0			p=口1
+			current = forward;		//c=口1			c=口2
+			forward = forward->link;	//f(口1)=口2		f(口2)=口3
+			current->link = prev;		//cL=p(0)		cL=p(口1)
 		}
-		forward->link = current;
-		first = forward;
+		forward->link = current;		//口3=口2
+		first = forward;				
 	}
 };
 
